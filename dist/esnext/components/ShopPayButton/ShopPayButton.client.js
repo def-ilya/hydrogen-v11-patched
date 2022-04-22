@@ -39,18 +39,9 @@ export function ShopPayButton({ variantIds, className, variantIdsAndQuantities, 
 /**
  * Takes a string in the format of "gid://shopify/ProductVariant/41007289630776" and returns a string of the ID part at the end: "41007289630776"
  */
-export function getIdFromGid(id) {
-    if (!id)
-        return;
-    let gid;
-    // atob() / Buffer required for SFAPI 2022-01. Remove atob() when upgrading to 2022-04
-    if (typeof (window === null || window === void 0 ? void 0 : window.atob) !== 'undefined') {
-        gid = window.atob(id);
-    }
-    else {
-        gid = Buffer.from(id, 'base64').toString('ascii');
-    }
-    return gid.split('/').pop();
-}
+ export function getIdFromGid(id?: string) {
+    if (!id) return;
+    return id.split('/').pop();
+  }
 export const MissingPropsErrorMessage = `You must pass in either "variantIds" or "variantIdsAndQuantities" to ShopPayButton`;
 export const DoublePropsErrorMessage = `You must provide either a variantIds or variantIdsAndQuantities prop, but not both in the ShopPayButton component`;
